@@ -317,7 +317,8 @@ footer { padding: 1.25rem; border-top: 1px solid var(--line); text-align: center
   gap: .25rem;
   white-space: nowrap;
 }
-.bouwstap { gap: .4rem; }
+.bouwstap { max-width: 100%; flex-wrap: wrap; gap: .4rem; white-space: normal; }
+.bouwstuk { white-space: normal; overflow-wrap: anywhere; }
 .bouwstap svg { width: 2.5rem; height: 2.15rem; flex-shrink: 0; }
 .bouwstap svg[viewBox="0 0 136 92"] { width: 3rem; }
 
@@ -395,6 +396,7 @@ footer { padding: 1.25rem; border-top: 1px solid var(--line); text-align: center
   line-height: 1.25;
 }
 .materiaal-groep svg { display: block; width: min(100%, 6rem); height: auto; }
+.materiaal-groep li span { max-width: 100%; overflow-wrap: anywhere; }
 @media print {
   .materiaal-groep li { break-inside: avoid; }
 }
@@ -438,12 +440,8 @@ footer { padding: 1.25rem; border-top: 1px solid var(--line); text-align: center
 .verovering-kaarten dt { font-weight: 700; color: var(--red); }
 .verovering-kaarten dd { margin: .15rem 0 0; }
 
-.bouwkosten-tabel {
-  table-layout: fixed;
-  width: 100%;
-  min-width: 49rem;
-}
-.bouwkosten-tabel thead th:first-child { width: 16rem; }
+.bouwkosten-tabel { table-layout: fixed; }
+.bouwkosten-tabel thead th:first-child { width: 34%; }
 .bouwkosten-tabel th,
 .bouwkosten-tabel td { vertical-align: middle; }
 .bouwkosten-tabel tbody { break-inside: avoid; }
@@ -451,7 +449,46 @@ footer { padding: 1.25rem; border-top: 1px solid var(--line); text-align: center
 .bouwkosten-tabel .bouwkosten-uitleg:first-child { margin-top: 0; }
 .bouwkosten-pictogrammen,
 .bouwkosten-pictogramgroep { display: inline-flex; align-items: center; flex: 0 0 auto; }
-.bouwkosten-pictogrammen { gap: .4rem; }
+.bouwkosten-pictogrammen { flex-wrap: wrap; max-width: 100%; gap: .3rem .4rem; }
 .bouwkosten-scheiding { flex: 0 0 auto; color: var(--muted); }
 .bouwkosten-pictogramgroep { gap: .06rem; }
 .bouwkosten-pictogramgroep svg { width: 1.65rem; height: 1.45rem; flex: 0 0 auto; }
+
+.content, .rule-content, .tabelwaarde { min-width: 0; }
+.tabelwaarde { overflow-wrap: anywhere; }
+.mobiele-kolomnaam { display: none; }
+
+@media screen and (max-width: 800px) {
+  .regel-tabel,
+  .regel-tabel tbody,
+  .regel-tabel tr,
+  .regel-tabel th,
+  .regel-tabel td { display: block; width: 100%; }
+
+  .regel-tabel thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  .regel-tabel tbody > tr {
+    margin-bottom: .65rem;
+    border: 1px solid var(--line);
+  }
+  .regel-tabel tbody > tr:last-child { margin-bottom: 0; }
+  .regel-tabel th,
+  .regel-tabel td { border: 0; padding: .45rem .65rem; }
+  .regel-tabel td { border-top: 1px solid var(--line); }
+  .regel-tabel tr:nth-child(even) td { background: transparent; }
+  .mobiele-kolomnaam {
+    display: block;
+    margin-bottom: .15rem;
+    color: var(--muted);
+    font-size: .875rem;
+    font-weight: 700;
+  }
+  .bouwkosten-pictogrammen { row-gap: .2rem; }
+  .bouwkosten-pictogramgroep svg { width: 1.5rem; height: 1.35rem; }
+}
